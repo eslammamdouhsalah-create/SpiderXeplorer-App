@@ -14,8 +14,7 @@ jobs:
       
     - name: Setup Java
       uses: actions/setup-java@v3
-      with:
-        java-version: '11'
+      with: java-version: '11'
         distribution: 'temurin'
         
     - name: List files (debug)
