@@ -18,14 +18,25 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
+    - name: List files (debug)
+      run: ls -la
       
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+    - name: Find gradle files
+      run: find . -name "*.gradle" -o -name "gradlew"
       
-    - name: Upload APK
+    - name: Try gradle build
+      run: |
+        if [ -f "./gradlew" ]; then
+          chmod +x ./gradlew
+          ./gradlew tasks --all || ./gradlew assembleDebug
+        else
+          echo "No gradlew file found!"
+          gradle tasks --all || gradle assembleDebug
+        fi
+        
+    - name: Upload APK if exists
       uses: actions/upload-artifact@v4
       with:
         name: spiderxplorer-app
         path: app/build/outputs/apk/debug/*.apk
+      if: success()
