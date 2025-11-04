@@ -14,28 +14,18 @@ jobs:
       
     - name: Setup Java
       uses: actions/setup-java@v3
-      with: java-version: '11'
+      with:
+        java-version: '17'
         distribution: 'temurin'
         
-    - name: List files (debug)
-      run: ls -la
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
       
-    - name: Find gradle files
-      run: find . -name "*.gradle" -o -name "gradlew"
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
       
-    - name: Try gradle build
-      run: |
-        if [ -f "./gradlew" ]; then
-          chmod +x ./gradlew
-          ./gradlew tasks --all || ./gradlew assembleDebug
-        else
-          echo "No gradlew file found!"
-          gradle tasks --all || gradle assembleDebug
-        fi
-        
-    - name: Upload APK if exists
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: spiderxplorer-app
         path: app/build/outputs/apk/debug/*.apk
-      if: success()
