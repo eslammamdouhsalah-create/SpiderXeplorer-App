@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">SpiderXeplorer Controller</string>
+    <string name="title_control">التحكم</string>
+    <string name="title_sensors">الحساسات</string>
+    <string name="title_camera">الكاميرا</string>
+    <string name="title_settings">الإعدادات</string>
+    <string name="forward">للأمام</string>
+    <string name="backward">للخلف</string>
+    <string name="left">يسار</string>
+    <string name="right">يمين</string>
+    <string name="stop">توقف</string>
+    <string name="speed">السرعة</string>
+    <string name="bluetooth_status_connected">متصل</string>
+    <string name="bluetooth_status_disconnected">غير متصل</string>
+    <string name="temperature">درجة الحرارة</string>
+    <string name="distance">المسافة</string>
+    <string name="metal_detection">اكتشاف المعادن</string>
+    <string name="light_sensor">حساس الضوء</string>
+    <string name="humidity_sensor">حساس الرطوبة</string>
+    <string name="capture_photo">التقاط صورة</string>
+    <string name="record_video">تسجيل فيديو</string>
+    <string name="switch_camera">تبديل الكاميرا</string>
+    <string name="theme">المظهر</string>
+    <string name="macro_commands">أوامر الماكرو</string>
+    <string name="reset_bluetooth">إعادة ضبط البلوتوث</string>
+    <string name="app_info">معلومات التطبيق</string>
+</resources>

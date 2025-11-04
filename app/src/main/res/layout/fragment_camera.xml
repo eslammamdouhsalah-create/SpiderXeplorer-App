@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.camera.CameraFragment">
+
+    <!-- Video Stream Placeholder (Replace with actual video view like SurfaceView or TextureView for streaming) -->
+    <View
+        android:id="@+id/video_stream_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Overlay Data -->
+    <TextView
+        android:id="@+id/overlay_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#80000000"
+        android:padding="4dp"
+        android:textColor="@color/red_cyber"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SPEED: 50%" />
+
+    <TextView
+        android:id="@+id/overlay_bt_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#80000000"
+        android:padding="4dp"
+        android:textColor="@color/red_cyber"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BT: CONNECTED" />
+
+    <!-- Camera Controls -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_capture_photo"
+            style="@style/CyberButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/capture_photo"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/btn_record_video"
+            style="@style/CyberButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record_video"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/btn_switch_camera"
+            style="@style/CyberButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_camera" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

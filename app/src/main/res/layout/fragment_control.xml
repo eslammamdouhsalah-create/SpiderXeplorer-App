@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_dark"
+    tools:context=".ui.control.ControlFragment">
+
+    <!-- Bluetooth Status Indicator -->
+    <TextView
+        android:id="@+id/bluetooth_status_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/bluetooth_status_disconnected"
+        android:textColor="@color/red_cyber"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bluetooth_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="DISCONNECTED"
+        android:textColor="@color/red_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/bluetooth_status_label"
+        app:layout_constraintTop_toTopOf="@id/bluetooth_status_label" />
+
+    <!-- Directional Control Buttons (D-Pad Style) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/control_pad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Forward -->
+        <Button
+            android:id="@+id/btn_forward"
+            style="@style/CyberButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="▲"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Left -->
+        <Button
+            android:id="@+id/btn_left"
+            style="@style/CyberButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="◀"
+            app:layout_constraintEnd_toStartOf="@id/btn_stop"
+            app:layout_constraintTop_toBottomOf="@id/btn_forward" />
+
+        <!-- Stop -->
+        <Button
+            android:id="@+id/btn_stop"
+            style="@style/CyberButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="■"
+            app:layout_constraintEnd_toEndOf="@id/btn_forward"
+            app:layout_constraintStart_toStartOf="@id/btn_forward"
+            app:layout_constraintTop_toBottomOf="@id/btn_forward" />
+
+        <!-- Right -->
+        <Button
+            android:id="@+id/btn_right"
+            style="@style/CyberButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="▶"
+            app:layout_constraintStart_toEndOf="@id/btn_stop"
+            app:layout_constraintTop_toBottomOf="@id/btn_forward" />
+
+        <!-- Backward -->
+        <Button
+            android:id="@+id/btn_backward"
+            style="@style/CyberButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="▼"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_stop" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Speed Slider -->
+    <TextView
+        android:id="@+id/speed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/speed"
+        android:textColor="@color/red_cyber"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/control_pad"
+        app:layout_constraintTop_toBottomOf="@id/control_pad" />
+
+    <TextView
+        android:id="@+id/speed_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0%"
+        android:textColor="@color/red_cyber"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/speed_label"
+        app:layout_constraintTop_toTopOf="@id/speed_label" />
+
+    <SeekBar
+        android:id="@+id/speed_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/red_cyber"
+        android:thumbTint="@color/red_cyber"
+        app:layout_constraintEnd_toEndOf="@id/control_pad"
+        app:layout_constraintStart_toStartOf="@id/control_pad"
+        app:layout_constraintTop_toBottomOf="@id/speed_label" />
+
+    <!-- Custom Style for Cyberpunk Buttons (Defined in themes.xml or a separate style file) -->
+    <style name="CyberButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:textColor">@color/red_cyber</item>
+        <item name="android:textSize">24sp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeColor">@color/red_cyber</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
