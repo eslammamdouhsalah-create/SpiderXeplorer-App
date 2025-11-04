@@ -19,14 +19,47 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      # عرض ملفات الريبو (مفيد للتتبع في السجلات)
+      - name: List repo files (for debug)
+        run: |
+          echo "=== repo root list ==="
+          ls -la
+          echo "=== find gradlew (maxdepth 5) ==="
+          find . -maxdepth 5 -name gradlew -type f -print || true
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      # خطوة مرنة: تلاقي gradlew وتنفذه من مساره الصحيح
+      - name: Make gradlew executable and build (auto-find)
+        run: |
+          set -e
+          # لو gradlew في الجذر
+          if [ -f "./gradlew" ]; then
+            echo "Found ./gradlew"
+            chmod +x ./gradlew
+            ./gradlew assembleDebug
+            exit 0
+          fi
 
-      - name: Upload APK
+          # لو مش في الجذر، نبحث في المجلدات الفرعية (حتى عمق 5)
+          GRADLEW_PATH=$(find . -maxdepth 5 -type f -name gradlew | head -n 1 || true)
+          if [ -n "$GRADLEW_PATH" ]; then
+            echo "Found gradlew at: $GRADLEW_PATH"
+            chmod +x "$GRADLEW_PATH"
+            DIR=$(dirname "$GRADLEW_PATH")
+            echo "Running from dir: $DIR"
+            (cd "$DIR" && ./gradlew assembleDebug)
+            exit 0
+          fi
+
+          # لو ولا ملف gradlew موجود
+          echo "ERROR: No gradlew wrapper found in repository."
+          echo "Either add the Gradle wrapper files (gradlew, gradlew.bat, gradle/wrapper/) or adjust the workflow."
+          exit 1
+
+      # رفع أي APK تم توليده (يغطي مسارات فرعية)
+      - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
           name: spiderxplorer-app
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: |
+            **/app/build/outputs/apk/debug/*.apk
+            **/build/outputs/apk/debug/*.apk
