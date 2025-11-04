@@ -1,40 +1,33 @@
-name: Build Android App
+name: Android Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      # 🧩 لو ملف gradlew مش موجود، يولّده تلقائيًا
-      - name: Generate Gradle Wrapper if missing
-        run: |
-          if [ ! -f "./gradlew" ]; then
-            echo "gradlew not found! generating it..."
-            gradle wrapper
-          fi
-          chmod +x ./gradlew
-
-      # 🏗️ بناء ملف الـ APK
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-
-      # 📦 رفع ملف APK الناتج
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: spiderxplorer-app
-          path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Generate Gradle Wrapper
+      run: |
+        gradle wrapper
+        chmod +x ./gradlew
+        
+    - name: Build APK
+      run: ./gradlew assembleDebug
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: spiderxplorer-app
+        path: app/build/outputs/apk/debug/*.apk
