@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -19,14 +20,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      # 🧱 إنشاء Gradle Wrapper لو مش موجود
+      - name: Generate Gradle Wrapper if missing
+        run: |
+          if [ ! -f "./gradlew" ]; then
+            echo "gradlew not found! generating it..."
+            gradle wrapper
+          fi
+          chmod +x ./gradlew
 
+      # 🏗️ بناء التطبيق (APK)
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
+      # 📦 رفع الـ APK الناتج كـ artifact على GitHub
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: spiderxplorer-app
+          name: android-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
