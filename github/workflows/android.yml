@@ -1,4 +1,4 @@
-name: Android CI
+name: Android Build
 
 on:
   push:
@@ -24,5 +24,5 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: spiderxplorer-app
-        path: app/build/outputs/apk/debug/*.apk
+        name: app-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
