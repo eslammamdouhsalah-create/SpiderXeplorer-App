@@ -12,11 +12,11 @@ jobs:
     steps:
       # تحميل الكود من الريبو
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # إعداد Java 17 (مطلوبة لتشغيل Gradle)
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -31,7 +31,7 @@ jobs:
 
       # رفع الـAPK الناتج كـ Artifact يمكن تحميله
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: spiderxplorer-unsigned
           path: app/build/outputs/apk/debug/app-debug.apk
