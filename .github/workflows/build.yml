@@ -1,25 +1,29 @@
-name: Debug Project Structure
+name: Android Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  debug:
+  build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      
-    - name: List ALL files
-      run: find . -type f -name "*" | head -20
-      
-    - name: Check project structure
-      run: |
-        echo "=== Root files ==="
-        ls -la
-        echo "=== App folder ==="
-        ls -la app/ || echo "No app folder"
-        echo "=== Gradle files ==="
-        find . -name "*.gradle*" -o -name "gradlew*"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: spiderxplorer-unsigned
+          path: app/build/outputs/apk/debug/app-debug.apk
