@@ -1,4 +1,4 @@
-name: Build Android App
+name: Android CI
 
 on:
   push:
@@ -18,11 +18,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
-      
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+    - name: Build APK
+      run: gradle assembleDebug
       
     - name: Upload APK
       uses: actions/upload-artifact@v4
